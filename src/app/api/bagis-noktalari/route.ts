@@ -24,7 +24,8 @@ export async function GET() {
     console.log("KIZILAY'DAN GELEN ÖRNEK VERİ:", rawData[0] || rawData?.Data?.[0]);
 
     // GELEN VERİYİ HARİTAMIZA UYGUN HALE GETİRİYORUZ (MAPPING)
-    const noktalar = rawData.map((item: any, index: number) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let noktalar = rawData.map((item: any, index: number) => {
       // Saat formatını temizleyen küçük bir yardımcı fonksiyon (0001-01-01T09:00:00 -> 09:00)
       const formatSaat = (saatString: string) => saatString ? saatString.substring(11, 16) : "-";
       const formatTarih = (tarihString: string) => tarihString ? tarihString.substring(0, 10) : "-";
@@ -42,12 +43,15 @@ export async function GET() {
                        ? `${formatSaat(item.araBaslangicSaati)} - ${formatSaat(item.araBitisSaati)}`
                        : "Yok"
       };
-    }).filter((nokta: any) => nokta.lat && nokta.lng); 
+    });
+    
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    noktalar = noktalar.filter((nokta: any) => nokta.lat && nokta.lng); 
 
     return new Response(JSON.stringify(noktalar), {
       status: 200,
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
         'Cache-Control': 'no-store, max-age=0',
       },
     });

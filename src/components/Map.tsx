@@ -42,7 +42,7 @@ export default function Map() {
   return (
     <div className="flex flex-col gap-8 w-full">
       {/* Üst Kısım: Harita */}
-      <div className="w-full h-[500px] rounded-xl overflow-hidden shadow-2xl border-4 border-white z-0 relative">
+      <div className="w-full h-125 rounded-xl overflow-hidden shadow-2xl border-4 border-white z-0 relative">
         <MapContainer 
           center={[41.0, 29.0]} // İstanbul/Marmara geneli merkez
           zoom={9} 
@@ -65,7 +65,7 @@ export default function Map() {
                 },
               }}
             >
-              <Popup className="rounded-xl min-w-[220px]">
+              <Popup className="rounded-xl min-w-55">
                 <div className="text-left p-1">
                   <strong className="block text-red-600 mb-2 border-b border-red-100 pb-1 text-base">{nokta.title}</strong>
                   
