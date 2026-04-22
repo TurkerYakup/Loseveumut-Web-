@@ -19,10 +19,13 @@ export default function Home() {
             Sadece 10 dakikalık bir kan örneği vererek kök hücre bağışçısı olabilirsiniz. Senin kanın, bir çocuğun yarını olabilir.
           </p>
           <div className="pt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="#bagis-noktalari" className="group flex items-center justify-center gap-2 px-8 py-4 bg-white text-red-600 rounded-full font-bold text-lg hover:bg-slate-100 hover:scale-105 transition-transform duration-300 shadow-lg">
+            <a href="#bagis-noktalari" onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('bagis-noktalari')?.scrollIntoView({ behavior: 'smooth' });
+            }} className="group flex items-center justify-center gap-2 px-8 py-4 bg-white text-red-600 rounded-full font-bold text-lg hover:bg-slate-100 hover:scale-105 transition-transform duration-300 shadow-lg cursor-pointer">
               Bağış Noktalarını Gör
               <svg className="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-            </Link>
+            </a>
           </div>
         </div>
       </section>
