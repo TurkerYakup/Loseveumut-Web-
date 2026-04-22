@@ -17,11 +17,14 @@ const redPinIcon = L.divIcon({
 });
 
 interface BagisNoktasi {
-  id: number;
+  id: string | number;
   title: string;
   lat: number;
   lng: number;
+  address: string;
+  phone: string;
   type: string;
+  workingHours: string;
 }
 
 export default function Map() {
@@ -49,10 +52,34 @@ export default function Map() {
         
         {noktalar.map((nokta) => (
           <Marker key={nokta.id} position={[nokta.lat, nokta.lng]} icon={redPinIcon}>
-            <Popup className="rounded-xl">
-              <div className="text-center p-1">
-                <strong className="block text-red-600 mb-1 text-base">{nokta.title}</strong>
-                <span className="text-sm text-slate-600 font-medium">{nokta.type}</span>
+            <Popup className="rounded-xl min-w-[200px]">
+              <div className="text-left p-1">
+                <strong className="block text-red-600 mb-2 border-b border-red-100 pb-1 text-base">{nokta.title}</strong>
+                
+                <div className="space-y-1.5 mt-2 text-sm">
+                  <div className="flex items-start gap-1">
+                    <span className="font-bold text-slate-700 min-w-[50px]">Adres:</span>
+                    <span className="text-slate-600 leading-snug">{nokta.address}</span>
+                  </div>
+                  
+                  {nokta.phone !== "Belirtilmemiş" && (
+                    <div className="flex items-center gap-1">
+                      <span className="font-bold text-slate-700 min-w-[50px]">Tel:</span>
+                      <a href={`tel:0${nokta.phone}`} className="text-blue-600 hover:underline">{nokta.phone}</a>
+                    </div>
+                  )}
+                  
+                  {nokta.workingHours && (
+                    <div className="flex items-center gap-1">
+                      <span className="font-bold text-slate-700 min-w-[50px]">Saat:</span>
+                      <span className="text-slate-600">{nokta.workingHours}</span>
+                    </div>
+                  )}
+
+                  <div className="mt-2 text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded inline-block">
+                    {nokta.type}
+                  </div>
+                </div>
               </div>
             </Popup>
           </Marker>
