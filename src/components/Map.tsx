@@ -5,12 +5,15 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-// Leaflet ikon hatasını çözen klasik ayar
-const customIcon = new L.Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/512/833/833474.png', // Kırmızı bir kalp/konum ikonu
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-  popupAnchor: [0, -32],
+// Leaflet'in varsayılan PNG sorununu aşmak için doğrudan SVG ve Tailwind kullanıyoruz
+const redPinIcon = L.divIcon({
+  className: 'bg-transparent', // Leaflet'in varsayılan beyaz arka planını şeffaf yapıyoruz
+  html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="text-red-600 drop-shadow-xl w-10 h-10 -ml-2 -mt-4">
+          <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+         </svg>`,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40], // İkonun tam sivri ucunun haritadaki koordinata denk gelmesini sağlar
+  popupAnchor: [0, -40], // Popup'ın ikonun üstünde açılması için
 });
 
 interface BagisNoktasi {
@@ -45,11 +48,11 @@ export default function Map() {
         />
         
         {noktalar.map((nokta) => (
-          <Marker key={nokta.id} position={[nokta.lat, nokta.lng]} icon={customIcon}>
-            <Popup>
-              <div className="text-center">
-                <strong className="block text-red-600 mb-1">{nokta.title}</strong>
-                <span className="text-sm text-gray-600">{nokta.type}</span>
+          <Marker key={nokta.id} position={[nokta.lat, nokta.lng]} icon={redPinIcon}>
+            <Popup className="rounded-xl">
+              <div className="text-center p-1">
+                <strong className="block text-red-600 mb-1 text-base">{nokta.title}</strong>
+                <span className="text-sm text-slate-600 font-medium">{nokta.type}</span>
               </div>
             </Popup>
           </Marker>
