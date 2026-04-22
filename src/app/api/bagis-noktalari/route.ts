@@ -26,15 +26,14 @@ export async function GET() {
     console.log("KIZILAY'DAN GELEN ÖRNEK VERİ:", rawData[0] || rawData?.Data?.[0]);
 
     // GELEN VERİYİ HARİTAMIZA UYGUN HALE GETİRİYORUZ (MAPPING)
-    // Not: Kızılay'ın JSON anahtarları farklı olabilir (örn: 'Enlem' yerine 'Latitude'). 
-    // Eğer harita boş gelirse rawData'yı console.log ile inceleyip burayı güncelleyeceğiz.
     const noktalar = rawData.map((item: any, index: number) => ({
-      id: item.Id || index,
-      title: item.Name || item.Adres || "Kızılay Bağış Noktası",
-      lat: item.Latitude || item.Lat || item.Enlem,
-      lng: item.Longitude || item.Lng || item.Boylam,
-      type: item.TeamType || "Kök Hücre ve Kan Bağışı"
-    })).filter((nokta: any) => nokta.lat && nokta.lng); // Sadece koordinatı olanları al 
+      id: item.ekipID || index,
+      title: item.ekipAdi || "Kızılay Bağış Noktası",
+      lat: item.koordinatLatitude,
+      lng: item.koordinatLongitude,
+      // Alt bilgi olarak adreslerini gösterelim, çok daha şık olur
+      type: item.adres || "Kök Hücre ve Kan Bağışı Noktası" 
+    })).filter((nokta: any) => nokta.lat && nokta.lng); // Koordinatı olmayan (boş) verileri haritadan gizle 
 
     return new Response(JSON.stringify(noktalar), {
       status: 200,
