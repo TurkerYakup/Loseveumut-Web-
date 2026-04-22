@@ -25,25 +25,24 @@ export async function GET() {
 
     // GELEN VERİYİ HARİTAMIZA UYGUN HALE GETİRİYORUZ (MAPPING)
     const noktalar = rawData.map((item: any, index: number) => {
-      // Saatleri ISO formatından daha okunabilir bir formata getirebiliriz (örneğin sadece 09:00 - 18:30)
-      const parseTime = (timeStr: string) => timeStr ? timeStr.split('T')[1]?.substring(0, 5) : '';
-      const baslangic = parseTime(item.baslangicSaati);
-      const bitis = parseTime(item.bitisSaati);
-      const saatler = baslangic && bitis ? `${baslangic} - ${bitis}` : '';
-      
-      const isAferez = item.aferezAlinabilir ? "✅ Kök Hücre (Aferez) Alınabilir" : "Kan Bağışı Kabul Ediliyor";
+      // Saat formatını temizleyen küçük bir yardımcı fonksiyon (0001-01-01T09:00:00 -> 09:00)
+      const formatSaat = (saatString: string) => saatString ? saatString.substring(11, 16) : "-";
+      const formatTarih = (tarihString: string) => tarihString ? tarihString.substring(0, 10) : "-";
 
       return {
-        id: item.ekipID || index.toString(),
+        id: item.ekipID || index,
         title: item.ekipAdi || "Kızılay Bağış Noktası",
         lat: item.koordinatLatitude,
         lng: item.koordinatLongitude,
-        address: `${item.adres} ${item.ilceAd ? '- ' + item.ilceAd : ''}`,
-        phone: item.telefon || "Belirtilmemiş",
-        type: isAferez,
-        workingHours: saatler
+        adres: item.adres || "Adres belirtilmemiş.",
+        telefon: item.telefon ? `0 ${item.telefon}` : "Belirtilmemiş",
+        tarih: formatTarih(item.tarih),
+        calismaSaatleri: `${formatSaat(item.baslangicSaati)} - ${formatSaat(item.bitisSaati)}`,
+        molaSaatleri: (item.araBaslangicSaati && item.araBitisSaati && item.araBaslangicSaati.includes('T'))
+                       ? `${formatSaat(item.araBaslangicSaati)} - ${formatSaat(item.araBitisSaati)}`
+                       : "Yok"
       };
-    }).filter((nokta: any) => nokta.lat && nokta.lng); // Koordinatı olmayan (boş) verileri haritadan gizle 
+    }).filter((nokta: any) => nokta.lat && nokta.lng); 
 
     return new Response(JSON.stringify(noktalar), {
       status: 200,

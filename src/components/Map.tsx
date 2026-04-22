@@ -21,10 +21,11 @@ interface BagisNoktasi {
   title: string;
   lat: number;
   lng: number;
-  address: string;
-  phone: string;
-  type: string;
-  workingHours: string;
+  adres: string;
+  telefon: string;
+  tarih: string;
+  calismaSaatleri: string;
+  molaSaatleri: string;
 }
 
 export default function Map() {
@@ -38,53 +39,56 @@ export default function Map() {
   }, []);
 
   return (
-    <div className="w-full h-[500px] rounded-xl overflow-hidden shadow-2xl relative z-0">
-      <MapContainer 
-        center={[40.6, 29.0]} // Haritanın açılış merkezi (Marmara Bölgesi)
-        zoom={8} 
-        scrollWheelZoom={false} 
-        style={{ height: '100%', width: '100%', zIndex: 0 }}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
-        
-        {noktalar.map((nokta) => (
-          <Marker key={nokta.id} position={[nokta.lat, nokta.lng]} icon={redPinIcon}>
-            <Popup className="rounded-xl min-w-[200px]">
-              <div className="text-left p-1">
-                <strong className="block text-red-600 mb-2 border-b border-red-100 pb-1 text-base">{nokta.title}</strong>
-                
-                <div className="space-y-1.5 mt-2 text-sm">
-                  <div className="flex items-start gap-1">
-                    <span className="font-bold text-slate-700 min-w-[50px]">Adres:</span>
-                    <span className="text-slate-600 leading-snug">{nokta.address}</span>
-                  </div>
-                  
-                  {nokta.phone !== "Belirtilmemiş" && (
-                    <div className="flex items-center gap-1">
-                      <span className="font-bold text-slate-700 min-w-[50px]">Tel:</span>
-                      <a href={`tel:0${nokta.phone}`} className="text-blue-600 hover:underline">{nokta.phone}</a>
-                    </div>
-                  )}
-                  
-                  {nokta.workingHours && (
-                    <div className="flex items-center gap-1">
-                      <span className="font-bold text-slate-700 min-w-[50px]">Saat:</span>
-                      <span className="text-slate-600">{nokta.workingHours}</span>
-                    </div>
-                  )}
+    <div className="flex flex-col gap-8 w-full">
+      {/* Üst Kısım: Harita */}
+      <div className="w-full h-[500px] rounded-xl overflow-hidden shadow-2xl border-4 border-white z-0 relative">
+        <MapContainer 
+          center={[41.0, 29.0]} // İstanbul/Marmara geneli merkez
+          zoom={9} 
+          scrollWheelZoom={false} 
+          style={{ height: '100%', width: '100%' }}
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; OpenStreetMap'
+          />
+          
+          {noktalar.map((nokta) => (
+            <Marker key={nokta.id} position={[nokta.lat, nokta.lng]} icon={redPinIcon}>
+              <Popup className="rounded-xl">
+                <div className="text-center p-1">
+                  <strong className="block text-red-600 mb-1 text-base">{nokta.title}</strong>
+                  <span className="text-sm text-slate-600 font-medium">{nokta.adres}</span>
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+        </MapContainer>
+      </div>
 
-                  <div className="mt-2 text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded inline-block">
-                    {nokta.type}
-                  </div>
+      {/* Alt Kısım: Nokta Detayları (Liste) */}
+      <div className="w-full px-2">
+        <h3 className="text-2xl font-bold text-slate-800 mb-4 px-2">Bağış Noktası Detayları</h3>
+                 
+        {/* Çok fazla veri olursa sayfa uzamasın diye scroll eklendi */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[600px] overflow-y-auto pr-2 pb-4">
+          {noktalar.map((nokta) => (
+            <div key={nokta.id} className="bg-white p-5 rounded-xl shadow-md border-l-4 border-red-600 hover:shadow-lg transition-shadow text-left">
+              <h4 className="font-bold text-red-700 text-lg mb-2">{nokta.title}</h4>
+                             
+              <div className="text-sm text-slate-700 space-y-1.5">
+                <p><span className="font-semibold text-slate-900">📍 Adres:</span> {nokta.adres}</p>
+                <p><span className="font-semibold text-slate-900">📞 Telefon:</span> {nokta.telefon}</p>
+                <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center bg-slate-50 p-2 rounded mt-2 gap-2 text-xs">
+                  <span>📅 <b>Tarih:</b> {nokta.tarih}</span>
+                  <span>⏰ <b>Mesai:</b> {nokta.calismaSaatleri}</span>
+                  <span>☕ <b>Mola:</b> {nokta.molaSaatleri}</span>
                 </div>
               </div>
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
