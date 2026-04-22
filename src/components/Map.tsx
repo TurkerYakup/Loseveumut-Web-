@@ -33,10 +33,33 @@ export default function Map() {
   const [seciliNokta, setSeciliNokta] = useState<BagisNoktasi | null>(null);
 
   useEffect(() => {
-    // Yazdığımız kendi Edge API'mizden veriyi çekiyoruz
-    fetch('/api/bagis-noktalari')
+    // Doğrudan Kızılay'ın API'sine gidiyoruz (34 = İstanbul, 0 = Hepsi)
+    const KIZILAY_API_URL = 'https://mobilwebapi.kizilay.org.tr/api/BloodTeam/34';
+
+    fetch(KIZILAY_API_URL)
       .then(res => res.json())
-      .then(data => setNoktalar(data));
+      .then(rawData => {
+        // Gelen veriyi anında burada (Client-Side) temizleyip haritaya hazırlıyoruz
+        const formatSaat = (saatString: string) => saatString ? saatString.substring(11, 16) : "-";
+        const formatTarih = (tarihString: string) => tarihString ? tarihString.substring(0, 10) : "-";
+
+        const islenmisNoktalar = rawData.map((item: any, index: number) => ({
+          id: item.ekipID || index,
+          title: item.ekipAdi || "Kızılay Bağış Noktası",
+          lat: item.koordinatLatitude,
+          lng: item.koordinatLongitude,
+          adres: item.adres || "Adres belirtilmemiş.",
+          telefon: item.telefon ? `0 ${item.telefon}` : "Belirtilmemiş",
+          tarih: formatTarih(item.tarih),
+          calismaSaatleri: `${formatSaat(item.baslangicSaati)} - ${formatSaat(item.bitisSaati)}`,
+          molaSaatleri: (item.araBaslangicSaati && item.araBitisSaati && item.araBaslangicSaati.includes('T')) 
+                        ? `${formatSaat(item.araBaslangicSaati)} - ${formatSaat(item.araBitisSaati)}` 
+                        : "Yok"
+        })).filter((nokta: any) => nokta.lat && nokta.lng);
+
+        setNoktalar(islenmisNoktalar);
+      })
+      .catch(err => console.error("Kızılay verisi çekilemedi:", err));
   }, []);
 
   return (
