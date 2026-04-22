@@ -23,6 +23,7 @@ export async function GET() {
     }
 
     const rawData = await response.json();
+    console.log("KIZILAY'DAN GELEN ÖRNEK VERİ:", rawData[0] || rawData?.Data?.[0]);
 
     // GELEN VERİYİ HARİTAMIZA UYGUN HALE GETİRİYORUZ (MAPPING)
     // Not: Kızılay'ın JSON anahtarları farklı olabilir (örn: 'Enlem' yerine 'Latitude'). 
