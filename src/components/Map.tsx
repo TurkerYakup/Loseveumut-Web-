@@ -30,6 +30,7 @@ interface BagisNoktasi {
 
 export default function Map() {
   const [noktalar, setNoktalar] = useState<BagisNoktasi[]>([]);
+  const [seciliNokta, setSeciliNokta] = useState<BagisNoktasi | null>(null);
 
   useEffect(() => {
     // Yazdığımız kendi Edge API'mizden veriyi çekiyoruz
@@ -54,11 +55,24 @@ export default function Map() {
           />
           
           {noktalar.map((nokta) => (
-            <Marker key={nokta.id} position={[nokta.lat, nokta.lng]} icon={redPinIcon}>
-              <Popup className="rounded-xl">
-                <div className="text-center p-1">
-                  <strong className="block text-red-600 mb-1 text-base">{nokta.title}</strong>
-                  <span className="text-sm text-slate-600 font-medium">{nokta.adres}</span>
+            <Marker 
+              key={nokta.id} 
+              position={[nokta.lat, nokta.lng]} 
+              icon={redPinIcon}
+              eventHandlers={{
+                click: () => {
+                  setSeciliNokta(nokta);
+                },
+              }}
+            >
+              <Popup className="rounded-xl min-w-[220px]">
+                <div className="text-left p-1">
+                  <strong className="block text-red-600 mb-2 border-b border-red-100 pb-1 text-base">{nokta.title}</strong>
+                  
+                  <div className="space-y-1.5 mt-2 text-sm text-slate-700">
+                    <p><span className="font-bold">Adres:</span> {nokta.adres}</p>
+                    <p><span className="font-bold">Telefon:</span> {nokta.telefon !== "Belirtilmemiş" ? <a href={`tel:${nokta.telefon.replace(/\s+/g,'')}`} className="text-blue-600 hover:underline">{nokta.telefon}</a> : nokta.telefon}</p>
+                  </div>
                 </div>
               </Popup>
             </Marker>
@@ -70,24 +84,25 @@ export default function Map() {
       <div className="w-full px-2">
         <h3 className="text-2xl font-bold text-slate-800 mb-4 px-2">Bağış Noktası Detayları</h3>
                  
-        {/* Çok fazla veri olursa sayfa uzamasın diye scroll eklendi */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[600px] overflow-y-auto pr-2 pb-4">
-          {noktalar.map((nokta) => (
-            <div key={nokta.id} className="bg-white p-5 rounded-xl shadow-md border-l-4 border-red-600 hover:shadow-lg transition-shadow text-left">
-              <h4 className="font-bold text-red-700 text-lg mb-2">{nokta.title}</h4>
-                             
-              <div className="text-sm text-slate-700 space-y-1.5">
-                <p><span className="font-semibold text-slate-900">📍 Adres:</span> {nokta.adres}</p>
-                <p><span className="font-semibold text-slate-900">📞 Telefon:</span> {nokta.telefon}</p>
-                <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center bg-slate-50 p-2 rounded mt-2 gap-2 text-xs">
-                  <span>📅 <b>Tarih:</b> {nokta.tarih}</span>
-                  <span>⏰ <b>Mesai:</b> {nokta.calismaSaatleri}</span>
-                  <span>☕ <b>Mola:</b> {nokta.molaSaatleri}</span>
-                </div>
+        {seciliNokta ? (
+          <div className="bg-white p-5 rounded-xl shadow-md border-l-4 border-red-600 hover:shadow-lg transition-shadow text-left mb-6 mx-2 animate-in fade-in zoom-in duration-300">
+            <h4 className="font-bold text-red-700 text-lg mb-2">{seciliNokta.title}</h4>
+                           
+            <div className="text-sm text-slate-700 space-y-1.5">
+              <p><span className="font-semibold text-slate-900">📍 Adres:</span> {seciliNokta.adres}</p>
+              <p><span className="font-semibold text-slate-900">📞 Telefon:</span> {seciliNokta.telefon}</p>
+              <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center bg-slate-50 p-2 rounded mt-2 gap-2 text-xs">
+                <span>📅 <b>Tarih:</b> {seciliNokta.tarih}</span>
+                <span>⏰ <b>Mesai:</b> {seciliNokta.calismaSaatleri}</span>
+                <span>☕ <b>Mola:</b> {seciliNokta.molaSaatleri}</span>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ) : (
+          <div className="bg-slate-100 p-8 rounded-xl text-center text-slate-500 font-medium mx-2 mb-6 border-2 border-dashed border-slate-200">
+            👆 Haritadan bir Kızılay bağış noktasına tıklayarak adres, telefon ve mesai detaylarını burada görebilirsiniz.
+          </div>
+        )}
       </div>
     </div>
   );
