@@ -174,10 +174,10 @@ export default function Home() {
           </div>
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <a href="https://www.kanver.org" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-colors shadow-lg hover:shadow-xl text-center">
-              Kanver.org'u Ziyaret Et
+              Kızılay'a Gitmek İçin
             </a>
-            <a href="#" className="px-8 py-4 border-2 border-slate-300 text-slate-700 bg-transparent rounded-xl font-bold hover:bg-slate-50 hover:border-slate-400 transition-colors text-center">
-              Sosyal Medya Hesaplarımız
+            <a href="https://turkok.saglik.gov.tr/" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-colors shadow-lg hover:shadow-xl text-center">
+              TÜRKÖK'e Gitmek İçin
             </a>
           </div>
         </div>
