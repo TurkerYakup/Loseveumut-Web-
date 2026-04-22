@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import MapWrapper from "@/components/MapWrapper";
 
 export default function Home() {
   return (
@@ -162,16 +163,8 @@ export default function Home() {
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">Size en yakın Kızılay Kan Bağışı veya TÜRKÖK merkezini bulun ve hayat kurtarmak için ilk adımı atın.</p>
         </div>
 
-        <div className="bg-white rounded-3xl h-96 md:h-[500px] w-full flex items-center justify-center overflow-hidden relative shadow-2xl ring-8 ring-white">
-          <p className="text-slate-500 font-medium absolute z-10 bg-white/80 px-6 py-3 rounded-full shadow-sm text-sm border border-slate-200 backdrop-blur-sm">Harita Entegrasyonu Buraya Gelecek (Google Maps vb.)</p>
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d192698.81452267527!2d28.847372990425316!3d41.00511877209772!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa7040068086b%3A0xe1ccfe98bc01b0d0!2s%C4%B0stanbul!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str" 
-            className="w-full h-full opacity-70 grayscale" 
-            style={{ border: 0 }} 
-            allowFullScreen={false} 
-            loading="lazy" 
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+        <div className="bg-white rounded-3xl w-full flex items-center justify-center overflow-hidden relative shadow-2xl ring-8 ring-white z-0">
+          <MapWrapper />
         </div>
 
         <div className="mt-16 flex flex-col items-center justify-center space-y-6">
