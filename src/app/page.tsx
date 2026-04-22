@@ -170,7 +170,7 @@ export default function Home() {
         <div className="mt-16 flex flex-col items-center justify-center space-y-6">
           <div className="text-center">
              <h3 className="text-2xl font-bold text-slate-900 mb-2">Daha Fazla Bilgi İçin</h3>
-             <p className="text-slate-600">Kızılay resmi kanalları veya projemizin hesaplarından detaylara ulaşabilirsiniz.</p>
+             <p className="text-slate-600">Sürece dair detaylı bilgi edinmek ve bağış merkezlerine ulaşmak için Kızılay veya TÜRKÖK resmi sayfalarını ziyaret edebilirsiniz.</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <a href="https://www.kanver.org" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-colors shadow-lg hover:shadow-xl text-center">
