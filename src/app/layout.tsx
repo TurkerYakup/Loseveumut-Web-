@@ -15,6 +15,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Losemiye Umut WEB",
   description: "Losemiye Umut Web Sitesi",
+  icons: {
+    icon: "/tile001.png",
+    shortcut: "/tile001.png",
+    apple: "/tile001.png",
+  },
 };
 
 export default function RootLayout({
