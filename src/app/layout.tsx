@@ -13,12 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Losemiye Umut WEB",
+  title: "Lösemiye Umut Ol",
   description: "Losemiye Umut Web Sitesi",
   icons: {
-    icon: "/tile001.png",
-    shortcut: "/tile001.png",
-    apple: "/tile001.png",
+    icon: "/favicon-logo.png",
+    shortcut: "/favicon-logo.png",
+    apple: "/favicon-logo.png",
   },
 };
 
