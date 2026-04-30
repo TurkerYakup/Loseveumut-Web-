@@ -60,22 +60,22 @@ export default function Home() {
 
         {/* Serbest Uçan Dekoratif Görseller (Estetik Düzen) */}
         {/* Sol Üst Köşe */}
-        <div className="absolute -top-12 -left-12 w-48 md:w-72 h-auto opacity-100 animate-float-1 pointer-events-none z-0">
+        <div className="absolute -top-12 -left-12 w-48 md:w-72 h-auto opacity-100 animate-float-1 pointer-events-none z-0 hidden md:block">
           <img src="/floating-1.png" alt="" className="w-full h-full object-contain" />
         </div>
         
         {/* Sağ Üst Köşe */}
-        <div className="absolute top-[10%] -right-16 w-56 md:w-80 h-auto opacity-90 animate-float-2 pointer-events-none z-0 rotate-12">
+        <div className="absolute top-[10%] -right-16 w-56 md:w-80 h-auto opacity-90 animate-float-2 pointer-events-none z-0 rotate-12 hidden md:block">
           <img src="/floating-2.png" alt="" className="w-full h-full object-contain" />
         </div>
         
         {/* Sol Orta */}
-        <div className="absolute top-[45%] -left-20 w-64 md:w-96 h-auto opacity-100 animate-float-3 pointer-events-none z-0 -rotate-12">
+        <div className="absolute top-[45%] -left-20 w-64 md:w-96 h-auto opacity-100 animate-float-3 pointer-events-none z-0 -rotate-12 hidden md:block">
           <img src="/floating-3.png" alt="" className="w-full h-full object-contain" />
         </div>
         
         {/* Sağ Alt Köşe */}
-        <div className="absolute bottom-[5%] -right-12 w-40 md:w-64 h-auto opacity-95 animate-float-1 pointer-events-none z-0 rotate-45">
+        <div className="absolute -bottom-8 -right-20 md:bottom-[5%] md:-right-12 w-40 md:w-64 h-auto opacity-95 animate-float-1 pointer-events-none z-0 rotate-45">
           <img src="/floating-1.png" alt="" className="w-full h-full object-contain" />
         </div>
 
