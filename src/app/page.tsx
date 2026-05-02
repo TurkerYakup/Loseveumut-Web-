@@ -1,12 +1,14 @@
 import React from "react";
 import MapWrapper from "@/components/MapWrapper";
+import ScrollNav from "@/components/ScrollNav";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-orange-50 text-slate-900 font-sans">
+      <ScrollNav />
 
       {/* 1. Hero Section */}
-      <section className="relative px-6 py-24 md:py-36 lg:py-48 bg-orange-500 text-white overflow-hidden">
+      <section id="hero" className="relative px-6 py-24 md:py-36 lg:py-48 bg-orange-500 text-white overflow-hidden">
         {/* Arka plan dekor: büyük turuncu daireler */}
         <div className="absolute -top-20 -right-20 w-96 h-96 bg-orange-400 rounded-full opacity-30 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-16 w-80 h-80 bg-orange-600 rounded-full opacity-20 blur-3xl pointer-events-none" />
@@ -28,7 +30,7 @@ export default function Home() {
 
           {/* Sağ: Metin */}
           <div className="w-full md:w-7/12 text-center md:text-left space-y-6">
-            <h1 className="text-4xl md:text-[2.5rem] lg:text-[3.5rem] xl:text-[4rem] lg:whitespace-nowrap font-extrabold tracking-tight leading-tight">
+            <h1 className="text-4xl md:text-[2.25rem] lg:text-[3rem] xl:text-[3.5rem] lg:whitespace-nowrap font-extrabold tracking-tight leading-tight">
               Lösemili Çocuklara Umut Ol
             </h1>
             <p className="text-2xl md:text-3xl font-bold text-orange-100">
@@ -53,36 +55,10 @@ export default function Home() {
       </section>
 
       {/* 2. Adım Adım Hayat Kurtarmak */}
-      <section className="py-24 px-6 md:px-12 max-w-5xl mx-auto rounded-3xl my-12 relative bg-white shadow-2xl ring-1 ring-orange-50 overflow-hidden">
+      <section id="adim-adim" className="py-24 px-6 md:px-12 max-w-5xl mx-auto rounded-3xl my-12 relative bg-white shadow-2xl ring-1 ring-orange-50 overflow-hidden">
         {/* Dekor: turuncu şeritler */}
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-300 via-orange-500 to-orange-300" />
         <div className="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-orange-300 via-orange-500 to-orange-300" />
-
-        {/* Serbest Uçan Dekoratif Görseller (Estetik Düzen) */}
-        {/* Sol Üst Köşe */}
-        <div className="absolute -top-12 -left-12 w-48 md:w-72 h-auto opacity-100 animate-float-1 pointer-events-none z-0 hidden md:block">
-          <img src="/floating-1.png" alt="" className="w-full h-full object-contain" />
-        </div>
-        
-        {/* Sağ Üst Köşe */}
-        <div className="absolute top-[10%] -right-16 w-56 md:w-80 h-auto opacity-90 animate-float-2 pointer-events-none z-0 rotate-12 hidden md:block">
-          <img src="/floating-2.png" alt="" className="w-full h-full object-contain" />
-        </div>
-        
-        {/* Sol Orta */}
-        <div className="absolute top-[45%] -left-20 w-64 md:w-96 h-auto opacity-100 animate-float-3 pointer-events-none z-0 -rotate-12 hidden md:block">
-          <img src="/floating-3.png" alt="" className="w-full h-full object-contain" />
-        </div>
-        
-        {/* Sağ Alt Köşe */}
-        <div className="absolute -bottom-8 -right-20 md:bottom-[5%] md:-right-12 w-40 md:w-64 h-auto opacity-95 animate-float-1 pointer-events-none z-0 rotate-45">
-          <img src="/floating-1.png" alt="" className="w-full h-full object-contain" />
-        </div>
-
-        {/* Sol Alt Köşe */}
-        <div className="absolute -bottom-16 left-[15%] w-32 md:w-56 h-auto opacity-85 animate-float-2 pointer-events-none z-0 -rotate-45 hidden md:block">
-          <img src="/floating-2.png" alt="" className="w-full h-full object-contain" />
-        </div>
 
         {/* İçeriklerin z-index'ini yükselterek görsellerin üstünde kalmalarını sağlama */}
         <div className="relative z-10">
@@ -124,8 +100,8 @@ export default function Home() {
                 <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-orange-100 bg-gradient-to-tr from-orange-400 to-orange-500 text-white shadow-orange-300 shadow-xl shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 font-bold z-10 transition-transform group-hover:scale-110">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">{step.icon}</svg>
                 </div>
-                <div className="hidden md:block absolute left-1/2 top-1/2 h-0.5 w-[5%] bg-orange-200 group-odd:-translate-x-full group-even:translate-x-0 -z-10" />
-                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-white p-6 rounded-2xl shadow-md border-l-4 border-orange-400 hover:shadow-orange-100 hover:shadow-xl border-y border-r border-slate-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="hidden md:block absolute left-1/2 top-1/2 h-0.5 w-[5%] bg-orange-200 group-even:-translate-x-full group-odd:translate-x-0 -z-10" />
+                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-white p-6 rounded-2xl shadow-md border border-slate-100 border-l-4 border-l-orange-400 md:group-even:border-l md:group-even:border-l-slate-100 md:group-even:border-r-4 md:group-even:border-r-orange-400 hover:shadow-orange-100 hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-xs font-bold text-orange-400 bg-orange-50 px-2 py-0.5 rounded-full">Adım {i + 1}</span>
                   </div>
@@ -139,7 +115,7 @@ export default function Home() {
       </section>
 
       {/* 3. Bilgi Köşesi */}
-      <section className="py-24 px-6 bg-orange-50">
+      <section id="bilgi-kosesi" className="py-24 px-6 bg-orange-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
